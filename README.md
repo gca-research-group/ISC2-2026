@@ -24,8 +24,7 @@ outside-proof-of-concept/
   app-store/
   app-transport/
   app-whatsapp/
-  common/
-  launcher/
+  common/  
   metrics/
 
 evaluation/
