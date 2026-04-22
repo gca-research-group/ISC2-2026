@@ -1,0 +1,60 @@
+Analysis started at: 2026-04-20T12:07:07
+Inside CSV: inside.csv
+Outside CSV: outside.csv
+Log file: analysis_results.log
+
+=== Main comparison: trusted vs conventional ===
+
+Metric: read_act_total_ms
+Trusted mean ± std: 33.88 ± 0.42
+Conventional mean ± std: 25.72 ± 3.36
+Shapiro trusted: 0.000000
+Shapiro conventional: 0.000000
+Mann–Whitney raw p-value: 0.000000
+Cliff's Delta: 0.933
+
+Metric: execute_total_ms
+Trusted mean ± std: 33.90 ± 0.42
+Conventional mean ± std: 25.73 ± 3.36
+Shapiro trusted: 0.000000
+Shapiro conventional: 0.000000
+Mann–Whitney raw p-value: 0.000000
+Cliff's Delta: 0.933
+Holm-adjusted p-value for read_act_total_ms: 0.000000
+Holm-adjusted p-value for execute_total_ms: 0.000000
+
+=== Robustness analysis after IQR filtering ===
+
+Metric: read_act_total_ms
+Trusted mean ± std without outliers: 33.78 ± 0.16
+Conventional mean ± std without outliers: 25.11 ± 0.07
+Trusted outliers removed: 2
+Conventional outliers removed: 5
+
+Metric: execute_total_ms
+Trusted mean ± std without outliers: 33.80 ± 0.16
+Conventional mean ± std without outliers: 25.12 ± 0.07
+Trusted outliers removed: 2
+Conventional outliers removed: 5
+
+=== Internal cost of Read_act in the trusted environment ===
+Service lookup: mean=0.010686 ms, contribution=0.032%
+Certificate retrieval: mean=0.240413 ms, contribution=0.710%
+Public-key retrieval: mean=0.103857 ms, contribution=0.307%
+Local decryption: mean=0.004951 ms, contribution=0.015%
+Read_act total mean: 33.879494 ms
+
+=== Internal cost of Launcher.start() in the trusted environment ===
+Source-code retrieval: mean=0.029373 ms
+Compilation: mean=299.811747 ms
+Compartment creation: mean=0.001881 ms
+Deployment: mean=0.000876 ms
+Integrated-services retrieval: mean=0.003193 ms
+Key exchange: mean=0.006181 ms
+Attestable-document generation: mean=0.188324 ms
+Certificate generation: mean=0.809543 ms
+Certificate signing: mean=0.000880 ms
+Program execution: mean=55.877670 ms
+Launcher.start(): mean=58.364212 ms
+
+Analysis finished at: 2026-04-20T12:07:07
