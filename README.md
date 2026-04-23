@@ -87,57 +87,6 @@ sudo pkg64 install python39 py39-pip py39-openssl
 
 ---
 
-## Important project notes before running
-
-### 1. Metrics location
-Each proof-of-concept writes metrics to:
-
-```text
-inside-proof-of-concept/metrics/all_metrics.csv
-outside-proof-of-concept/metrics/all_metrics.csv
-```
-
-If these files already contain old data, remove them before starting a new campaign.
-
-### 2. Clean execution is recommended
-Before running a new campaign, remove previous metrics and, if needed, previous generated artefacts:
-
-```bash
-rm -f inside-proof-of-concept/metrics/all_metrics.csv
-rm -f outside-proof-of-concept/metrics/all_metrics.csv
-```
-
-If you want a fully clean run, you may also remove generated executables and certificates under:
-
-```text
-launcher/programs-data-base/cheri-caps-executables/
-launcher/programs-data-base/certificates/
-```
-
-### 3. Behaviour of the inside CLI
-`inside-proof-of-concept/launcher/command-line-interface.py` currently triggers `/execute/<program_id>` and then starts the returned executable again in the background. 
-
----
-
-# Replication workflow
-
-The same high-level procedure applies to both environments:
-
-1. Start the three digital services.
-2. Start `launcher.py`.
-3. Start `command-line-interface.py`.
-4. Use the CLI menu to:
-   - list files,
-   - upload the integration process source file,
-   - compile it,
-   - execute it.
-5. Repeat the execution 30 times.
-6. Run the analysis script.
-
-The sections below provide the exact commands.
-
----
-
 ## Part A — Trusted environment (`inside-proof-of-concept`)
 
 ### Step A1 — Start the digital services
@@ -245,38 +194,11 @@ Repeat option `5` until you obtain 30 complete repetitions in:
 inside-proof-of-concept/metrics/all_metrics.csv
 ```
 
-### Step A9 — Validate the number of executions
-
-Use:
-
-```bash
-cd inside-proof-of-concept/metrics
-grep -c read_act_total_ms all_metrics.csv
-grep -c execute_total_ms all_metrics.csv
-grep -c start_total_ms all_metrics.csv
-```
-
-For a complete campaign, the expected count is 30 for the main trusted metrics.
-
 ---
 
 ## Part B — Conventional environment (`outside-proof-of-concept`)
 
-### Step B1 — Apply the Store Service port fix
-
-Before running, fix the port mismatch described earlier.
-
-Recommended change in `outside-proof-of-concept/launcher/launcher.py`:
-
-```python
-SERVICE_URLS = {
-    'store-service': 'https://127.0.0.1:8002/api/request',
-    'transport-service': 'https://127.0.0.1:8001/api/post',
-    'messaging-service': 'https://127.0.0.1:9000/api/post',
-}
-```
-
-### Step B2 — Start the digital services
+### Step B1 — Start the digital services
 
 Open three terminals.
 
@@ -308,13 +230,13 @@ Expected endpoint:
 - `https://127.0.0.1:9000/api/post`
 
 
-### Step B3 — Compile the integration process
+### Step B2 — Compile the integration process
 
 ```bash
 cd inside-proof-of-concept/sources
 clang-morello -o integration_process integration_process.c -lssl -lcrypto
 ```
-### Step B4 — Execute the integration process
+### Step B3 — Execute the integration process
 
 ```bash
 ./integration_process
