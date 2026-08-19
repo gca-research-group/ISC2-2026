@@ -242,14 +242,6 @@ clang-morello -o integration_process integration_process.c -lssl -lcrypto
 ./integration_process
 ```
 
-### Step B4 — Repeat 30 times
-
-Repeat option `5` until you obtain 30 complete repetitions in:
-
-```text
-outside-proof-of-concept/metrics/all_metrics.csv
-```
-
 ---
 
 # Part C — Statistical analysis
