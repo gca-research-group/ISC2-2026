@@ -186,14 +186,6 @@ Choose option `5` and enter the same program ID.
 
 This triggers the trusted workflow mediated by the Launcher.
 
-### Step A8 — Repeat 30 times
-
-Repeat option `5` until you obtain 30 complete repetitions in:
-
-```text
-inside-proof-of-concept/metrics/all_metrics.csv
-```
-
 ---
 
 ## Part B — Conventional environment (`outside-proof-of-concept`)
